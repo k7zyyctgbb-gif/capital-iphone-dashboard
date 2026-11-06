@@ -26,7 +26,7 @@ footer{color:var(--soft);font-size:12px;line-height:1.65;padding:20px 0 0;border
 </head>
 <body><main>
 <header class="header"><div><div class="eyebrow">CONTROL CENTER / V14.9</div><h1 class="title">Capital · iPhone</h1><p class="subtitle">Automatische crypto-CFD-scanner<br>EMA 9 / 21 · candles van 5 minuten</p></div><div class="pill">● DEMO</div></header>
-<div class="notice">Dit is een <strong>alleen-lezen</strong> GitHub Pages-dashboard. De scanner draait in een aparte privé-repository via GitHub Actions, niet in Safari. Geen API-sleutels, rekeningsaldi of ordergegevens op deze publieke pagina. Marginbeveiliging: pauze bij 110%, hervat nieuwe orders pas vanaf 120%. De nieuwe regels zijn offline getest; live DEMO-verificatie is nog vereist voordat je automatisch handelen inschakelt.</div>
+<div class="notice">Dit is een <strong>alleen-lezen</strong> GitHub Pages-dashboard. De scanner draait in een aparte privé-repository via GitHub Actions, niet in Safari. Geen API-sleutels, rekeningnummers of individuele ordergegevens op deze publieke pagina. <strong>Let op:</strong> de drie getoonde DEMO-bedragen (totaalsaldo, beschikbaar en open P&amp;L) zijn voor iedereen zichtbaar. Gebruik deze openbare website nooit voor LIVE-rekeninggegevens. Marginbeveiliging: pauze bij 110%, hervat nieuwe orders pas vanaf 120%. De nieuwe regels zijn offline getest; live DEMO-verificatie is nog vereist voordat je automatisch handelen inschakelt.</div>
 <section class="grid" aria-label="Botstatus">
  <div class="card wide"><div class="label">BOTMODUS</div><div class="value" id="mode">GEEN GEGEVENS</div><div class="meta" id="age">Wachten op eerste scannerstatus</div></div>
  <div class="card wide"><div class="label">LAATSTE BESLISSING</div><div class="value" id="decision">—</div><div class="meta" id="updated">Nog geen meting</div></div>
@@ -37,12 +37,13 @@ footer{color:var(--soft);font-size:12px;line-height:1.65;padding:20px 0 0;border
  <div class="card"><div class="label">MARGENIVEAU</div><div class="value" id="margin">—</div><div class="meta">Alleen percentage (publiek)</div></div>
  <div class="card"><div class="label">MARGEPOORT</div><div class="value" id="margin-gate">—</div><div class="meta">110% pauze · 120% hervatten</div></div>
 </section>
-<section class="card" aria-label="Privé DEMO-accountoverzicht" style="margin-top:15px">
- <div class="label">PRIVÉ · REKENINGOVERZICHT</div>
- <h2 style="margin:0 0 12px;font-size:19px">Totaalsaldo · Beschikbaar · P&amp;L</h2>
- <p style="color:var(--soft);line-height:1.55;font-size:13px;margin:0 0 13px">Deze drie bedragen zijn privé. Ze worden daarom niet op de openbare website gepubliceerd. Je vindt ze in de <strong>Summary</strong> van de nieuwste SCAN of PREFLIGHT in je privé-GitHub-repository.</p>
- <a class="button" href="https://github.com/k7zyyctgbb-gif/Capital.com-demo-v149/actions/workflows/capital-demo.yml" rel="noopener noreferrer" target="_blank">Open privé rekeningoverzicht</a>
+<div class="section"><h2>DEMO-rekening · EUR</h2><span class="count">Openbaar</span></div>
+<section class="grid" aria-label="Actuele DEMO-rekeningbedragen" style="margin-top:0">
+ <div class="card wide"><div class="label">TOTAALSALDO · EQUITY</div><div class="value" id="demo-equity">—</div><div class="meta">Inclusief actuele P&amp;L</div></div>
+ <div class="card"><div class="label">BESCHIKBAAR VOOR HANDEL</div><div class="value" id="demo-available">—</div><div class="meta">DEMO, in euro</div></div>
+ <div class="card"><div class="label">OPEN P&amp;L</div><div class="value" id="demo-pnl">—</div><div class="meta">Niet-gerealiseerde winst of verlies</div></div>
 </section>
+<p id="finance-age" style="color:var(--soft);font-size:12px;line-height:1.45;margin:11px 0 4px">Wachten op DEMO-rekeninggegevens uit een nieuwe scan.</p>
 <div class="actions"><button class="button primary" id="refresh" type="button">↻ Nu verversen</button><a class="button" id="actions" href="https://github.com" rel="noopener noreferrer" target="_blank">Open GitHub Actions</a></div>
 <div class="section"><h2>Markten &amp; signalen</h2><span class="count" id="markets-label">Laatste scan</span></div>
 <section id="markets" class="market-list" aria-live="polite"><div class="card">Geen gegevens gepubliceerd. Voer eerst een GitHub Actions-scan uit.</div></section>
@@ -50,6 +51,8 @@ footer{color:var(--soft);font-size:12px;line-height:1.65;padding:20px 0 0;border
 </main><script>
 const e = id => document.getElementById(id);
 const safe = x => x == null ? '—' : String(x);
+const euros = x => typeof x === 'number' && Number.isFinite(x) ?
+  new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(x) : '—';
 async function refresh(){
  e('refresh').disabled=true;
  try{
@@ -67,6 +70,17 @@ async function refresh(){
   e('catalog').textContent=safe(data.catalog_total);
   e('scanned').textContent=safe(data.markets_scanned);
   e('errors').textContent=safe(data.errors_count);
+  const demoFinancials = [data.demo_equity_eur,data.demo_available_eur,data.demo_open_pnl_eur];
+  const moneyValid = data.account==='DEMO' && demoFinancials.every(v => typeof v==='number' && Number.isFinite(v));
+  e('demo-equity').textContent = moneyValid ? euros(data.demo_equity_eur) : '—';
+  e('demo-available').textContent = moneyValid ? euros(data.demo_available_eur) : '—';
+  e('demo-pnl').textContent = moneyValid ? euros(data.demo_open_pnl_eur) : '—';
+  e('demo-pnl').className = 'value ' + (!moneyValid ? 'muted' : data.demo_open_pnl_eur < 0 ? 'bad' : data.demo_open_pnl_eur > 0 ? 'good' : '');
+  e('finance-age').textContent = !moneyValid
+    ? 'Nog geen gevalideerde DEMO-rekeningbedragen. Start PREFLIGHT of SCAN.'
+    : !validScan ? 'Tijdstip onbekend · controleer GitHub Actions'
+    : stale ? 'Let op: bedragen zijn verouderd. Laatste meting: '+new Date(scannedAt).toLocaleString('nl-NL')
+    : 'Laatste meting: '+new Date(scannedAt).toLocaleString('nl-NL')+' · uitsluitend DEMO';
   e('margin').textContent=data.margin_level_pct == null?'—':data.margin_level_pct+'%';
   const marginKnown=validScan && !stale && typeof data.margin_level_pct==='number' && Number.isFinite(data.margin_level_pct);
   e('margin-gate').textContent=!marginKnown?'ONBEKEND':data.margin_paused?'PAUZE':'BESCHIKBAAR';
@@ -86,7 +100,15 @@ async function refresh(){
     left.append(name,sub);tag.className='signal '+(s.signal==='BUY'?'buy':s.signal==='SELL'?'sell':'');tag.textContent=s.signal;
     outer.append(left,tag);list.append(outer);
   }
- }catch(err){e('updated').textContent='Status kon niet worden geladen';e('mode').textContent='GEEN GEGEVENS';e('mode').className='value warn';e('age').textContent='Controleer de publicatie bij GitHub Actions';}
+ }catch(err){
+  e('updated').textContent='Status kon niet worden geladen';
+  e('mode').textContent='GEEN GEGEVENS';
+  e('mode').className='value warn';
+  e('age').textContent='Controleer de publicatie bij GitHub Actions';
+  for(const id of ['demo-equity','demo-available','demo-pnl'])e(id).textContent='—';
+  e('demo-pnl').className='value muted';
+  e('finance-age').textContent='Rekeninggegevens niet beschikbaar: status kon niet worden geladen';
+}
  finally{e('refresh').disabled=false}
 }
 e('refresh').addEventListener('click',refresh);
