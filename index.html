@@ -12,42 +12,42 @@
 :root{color-scheme:dark;--bg:#0b1220;--paper:#151f31;--border:#2a3650;--light:#eaf0ff;--soft:#9bafcc;--blue:#6494ff;--green:#62dcab;--red:#ff8598;--gold:#f7c878}
 *{box-sizing:border-box}body{margin:0;padding:0;color:var(--light);background:radial-gradient(ellipse at 75% -15%,#1b355b 0,transparent 55%),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px}
 main{width:min(960px,100%);margin:0 auto;padding:env(safe-area-inset-top) 17px calc(30px + env(safe-area-inset-bottom))}
-.header{padding-top:35px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.eyebrow{color:var(--blue);text-transform:uppercase;letter-spacing:.14em;font-weight:750;font-size:11px}.title{font-size:clamp(27px,6vw,40px);letter-spacing:-.04em;line-height:1.12;margin:7px 0 9px;font-weight:760}.subtitle{color:var(--soft);margin:0;line-height:1.5}
+.header{padding-top:22px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.eyebrow{color:var(--blue);text-transform:uppercase;letter-spacing:.11em;font-weight:750;font-size:11px}.title{font-size:clamp(26px,6vw,38px);letter-spacing:-.04em;line-height:1.1;margin:6px 0 0;font-weight:760}.subtitle{color:var(--soft);margin:0;line-height:1.5}
 .pill{white-space:nowrap;border:1px solid #386a64;background:#1d3c3a;border-radius:90px;padding:8px 12px;color:#91edc7;font-weight:780;font-size:12px;margin-top:5px}
-.notice{background:#15243a;border:1px solid #385272;border-radius:14px;margin-top:23px;padding:12px 15px;color:#bcd3f3;font-size:13px;line-height:1.5}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}.card{background:var(--paper);border:1px solid var(--border);border-radius:20px;padding:19px;min-width:0}.card .label{font-size:12px;color:var(--soft);margin-bottom:12px}.card .value{font-size:clamp(18px,4.7vw,30px);font-weight:760;letter-spacing:-.035em;overflow-wrap:anywhere}.card .meta{margin-top:10px;font-size:12px;color:var(--soft)}.wide{grid-column:span 2}.good{color:var(--green)}.warn{color:var(--gold)}.bad{color:var(--red)}.muted{color:var(--soft)}
-.actions{display:flex;flex-wrap:wrap;gap:11px;margin:22px 0 27px}.button{border:1px solid #345279;background:#243a5e;color:#e4efff;border-radius:14px;font-size:14px;font-weight:680;padding:13px 18px;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-height:46px}
+.notice{margin-top:12px;color:var(--soft);font-size:11px;line-height:1.35}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:10px}.card{background:var(--paper);border:1px solid var(--border);border-radius:15px;padding:14px;min-width:0}.card .label{font-size:11px;color:var(--soft);margin-bottom:7px;font-weight:650;letter-spacing:.025em}.card .value{font-size:clamp(19px,5vw,28px);font-weight:760;letter-spacing:-.035em;overflow-wrap:anywhere}.card .meta{margin-top:6px;font-size:11px;color:var(--soft)}.wide{grid-column:span 2}.good{color:var(--green)}.warn{color:var(--gold)}.bad{color:var(--red)}.muted{color:var(--soft)}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin:19px 0 17px}.button{border:1px solid #345279;background:#243a5e;color:#e4efff;border-radius:12px;font-size:13px;font-weight:680;padding:11px 15px;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-height:44px}
 button.button{font:inherit;font-size:14px;font-weight:680}.button.primary{background:#416be5;border-color:#416be5;color:white}.button:disabled{opacity:.5}
-.section{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 12px}.section h2{margin:0;font-size:19px;letter-spacing:-.02em}.count{font-size:12px;color:var(--soft)}
-.market-list{display:grid;gap:9px}.market{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}.market strong{display:block;font-size:15px}.market small{color:var(--soft);display:block;font-size:12px;margin-top:5px}.signal{border-radius:20px;background:#303b54;color:#bfcde9;padding:6px 10px;font-size:11px;font-weight:800}.signal.buy{color:#73e3b6;background:#17463a}.signal.sell{color:#ffa3ae;background:#502b3c}
-footer{color:var(--soft);font-size:12px;line-height:1.65;padding:20px 0 0;border-top:1px solid var(--border);margin-top:32px}footer a{color:#96b6ff}
+.section{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 9px}.section h2{margin:0;font-size:17px;letter-spacing:-.02em}.count{font-size:11px;color:var(--soft)}
+.market-list{display:grid;gap:7px}.market{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;gap:10px}.market strong{display:block;font-size:14px}.market small{color:var(--soft);display:block;font-size:11px;margin-top:4px}.signal{border-radius:20px;background:#303b54;color:#bfcde9;padding:6px 10px;font-size:11px;font-weight:800}.signal.buy{color:#73e3b6;background:#17463a}.signal.sell{color:#ffa3ae;background:#502b3c}
+footer{color:var(--soft);font-size:11px;line-height:1.4;padding:14px 0 0;border-top:1px solid var(--border);margin-top:19px}footer a{color:#96b6ff}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.wide{grid-column:span 2}.market-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body><main>
-<header class="header"><div><div class="eyebrow">CONTROL CENTER / V14.9</div><h1 class="title">Capital · iPhone</h1><p class="subtitle">Geselecteerde crypto-CFD-scanner<br>Max. 30 munten · EMA 9/21 op 5 minuten</p></div><div class="pill">● DEMO</div></header>
-<div class="notice">Dit is een <strong>alleen-lezen</strong> GitHub Pages-dashboard. De scanner draait in een aparte privé-repository via GitHub Actions, niet in Safari. Geen API-sleutels, rekeningnummers of individuele ordergegevens op deze publieke pagina. <strong>Let op:</strong> de drie getoonde DEMO-bedragen (totaalsaldo, beschikbaar en open P&amp;L) zijn voor iedereen zichtbaar. Gebruik deze openbare website nooit voor LIVE-rekeninggegevens. Marginbeveiliging: pauze bij 110%, hervat nieuwe orders pas vanaf 120%. De nieuwe regels zijn offline getest; live DEMO-verificatie is nog vereist voordat je automatisch handelen inschakelt.</div>
-<section class="grid" aria-label="Botstatus">
- <div class="card wide"><div class="label">BOTMODUS</div><div class="value" id="mode">GEEN GEGEVENS</div><div class="meta" id="age">Wachten op eerste scannerstatus</div></div>
- <div class="card wide"><div class="label">LAATSTE BESLISSING</div><div class="value" id="decision">—</div><div class="meta" id="updated">Nog geen meting</div></div>
- <div class="card"><div class="label">GESELECTEERDE MUNTEN</div><div class="value" id="catalog">—</div><div class="meta" id="catalog-meta">Maximaal 30 zorgvuldig gefilterd</div></div>
- <div class="card"><div class="label">DEZE SCAN</div><div class="value" id="scanned">—</div><div class="meta">roterende deelverzameling</div></div>
- <div class="card"><div class="label">GESCANDE SIGNALEN</div><div class="value" id="signals-count">—</div><div class="meta">waarvan BUY/SELL</div></div>
- <div class="card"><div class="label">SCANFOUTEN</div><div class="value" id="errors">—</div><div class="meta">controleer Actions-log</div></div>
- <div class="card"><div class="label">MARGENIVEAU</div><div class="value" id="margin">—</div><div class="meta">Alleen percentage (publiek)</div></div>
- <div class="card"><div class="label">MARGEPOORT</div><div class="value" id="margin-gate">—</div><div class="meta">110% pauze · 120% hervatten</div></div>
-</section>
-<div class="section"><h2>DEMO-rekening · EUR</h2><span class="count">Openbaar</span></div>
+<header class="header"><div><div class="eyebrow">V14.9 · EMA 9/21 · 5m</div><h1 class="title">Capital</h1></div><div class="pill">● DEMO</div></header>
+<div class="notice">Alleen lezen · DEMO-bedragen openbaar · nooit LIVE-gegevens</div>
+<div class="section"><h2>Rekening · EUR</h2><span class="count" id="finance-age">—</span></div>
 <section class="grid" aria-label="Actuele DEMO-rekeningbedragen" style="margin-top:0">
- <div class="card wide"><div class="label">TOTAALSALDO · EQUITY</div><div class="value" id="demo-equity">—</div><div class="meta">Inclusief actuele P&amp;L</div></div>
- <div class="card"><div class="label">BESCHIKBAAR VOOR HANDEL</div><div class="value" id="demo-available">—</div><div class="meta">DEMO, in euro</div></div>
- <div class="card"><div class="label">OPEN P&amp;L</div><div class="value" id="demo-pnl">—</div><div class="meta">Niet-gerealiseerde winst of verlies</div></div>
+ <div class="card wide"><div class="label">TOTAALSALDO</div><div class="value" id="demo-equity">—</div></div>
+ <div class="card"><div class="label">BESCHIKBAAR</div><div class="value" id="demo-available">—</div></div>
+ <div class="card"><div class="label">OPEN P&amp;L</div><div class="value" id="demo-pnl">—</div></div>
 </section>
-<p id="finance-age" style="color:var(--soft);font-size:12px;line-height:1.45;margin:11px 0 4px">Wachten op DEMO-rekeninggegevens uit een nieuwe scan.</p>
-<div class="actions"><button class="button primary" id="refresh" type="button">↻ Nu verversen</button><a class="button" id="actions" href="https://github.com" rel="noopener noreferrer" target="_blank">Open GitHub Actions</a></div>
-<div class="section"><h2>Markten &amp; signalen</h2><span class="count" id="markets-label">Laatste scan</span></div>
-<section id="markets" class="market-list" aria-live="polite"><div class="card">Geen gegevens gepubliceerd. Voer eerst een GitHub Actions-scan uit.</div></section>
-<footer>Uitsluitend Capital.com DEMO. Maximum €100 per nieuwe positie, SL 2,5%, TP 5% (geen verliesgarantie). Meerdere posities zijn toegestaan als de extra marge past; maximaal één nieuwe order per scan. Voor live DEMO-gebruik eerst brokercontrole en een expliciete inschakeling nodig. GitHub Actions kan scans minimaal iedere 5 minuten plannen; vertragingen zijn mogelijk. Deze pagina kan <strong>openbaar</strong> zijn. START/STOP gaat uitsluitend via de <strong>DEMO_BOT_ENABLED</strong>-variabele in de privé-repository, niet via het publieke dashboard.</footer>
+<div class="section"><h2>Botstatus</h2><span class="count" id="updated">—</span></div>
+<section class="grid" aria-label="Botstatus" style="margin-top:0">
+ <div class="card wide"><div class="label">BOT</div><div class="value" id="mode">—</div><div class="meta" id="age"></div></div>
+ <div class="card wide"><div class="label">BESLISSING</div><div class="value" id="decision">—</div></div>
+ <div class="card"><div class="label">MUNTEN</div><div class="value" id="catalog">—</div><div class="meta" id="catalog-meta">max. 30</div></div>
+ <div class="card"><div class="label">GESCAND</div><div class="value" id="scanned">—</div></div>
+ <div class="card"><div class="label">SIGNALEN</div><div class="value" id="signals-count">—</div></div>
+ <div class="card"><div class="label">FOUTEN</div><div class="value" id="errors">—</div></div>
+ <div class="card"><div class="label">MARGE</div><div class="value" id="margin">—</div></div>
+ <div class="card"><div class="label">MARGEPOORT</div><div class="value" id="margin-gate">—</div><div class="meta">110% / 120%</div></div>
+</section>
+<div class="actions"><button class="button primary" id="refresh" type="button">↻ Ververs</button><a class="button" id="actions" href="https://github.com" rel="noopener noreferrer" target="_blank">GitHub Actions</a></div>
+<div class="section"><h2>Markten</h2><span class="count" id="markets-label">—</span></div>
+<section id="markets" class="market-list" aria-live="polite"><div class="card">Nog geen scan.</div></section>
+<footer>DEMO · Cijfers openbaar · Geen LIVE-gegevens</footer>
 </main><script>
 const e = id => document.getElementById(id);
 const safe = x => x == null ? '—' : String(x);
@@ -65,12 +65,12 @@ async function refresh(){
   const active=data.enabled===true;
   e('mode').textContent = !validScan?'GEEN GEGEVENS':stale?'STATUS VEROUDERD':active?'ACTIEF · DEMO':'GEPAUZEERD';
   e('mode').className='value '+(!validScan||stale?'warn':active?'good':'muted');
-  e('age').textContent = !validScan?'Wachten op eerste scan':stale?'Controleer GitHub Actions: laatste scan is ouder dan 20 minuten':'Laatst opgeslagen handelsmodus (geen live verbinding)';
+  e('age').textContent = !validScan?'Nog geen scan':stale?'Laatste status ouder dan 20 min':'';
   e('decision').textContent=safe(data.decision);
   e('catalog').textContent=safe(data.selected_markets);
   e('catalog-meta').textContent=typeof data.catalog_total==='number'
-    ? 'uit '+data.catalog_total+' cryptomarkten op Capital DEMO'
-    : 'Maximaal 30 zorgvuldig gefilterd';
+    ? 'van '+data.catalog_total
+    : 'max. 30';
   e('scanned').textContent=safe(data.markets_scanned);
   e('errors').textContent=safe(data.errors_count);
   const demoFinancials = [data.demo_equity_eur,data.demo_available_eur,data.demo_open_pnl_eur];
@@ -79,27 +79,25 @@ async function refresh(){
   e('demo-available').textContent = moneyValid ? euros(data.demo_available_eur) : '—';
   e('demo-pnl').textContent = moneyValid ? euros(data.demo_open_pnl_eur) : '—';
   e('demo-pnl').className = 'value ' + (!moneyValid ? 'muted' : data.demo_open_pnl_eur < 0 ? 'bad' : data.demo_open_pnl_eur > 0 ? 'good' : '');
-  e('finance-age').textContent = !moneyValid
-    ? 'Nog geen gevalideerde DEMO-rekeningbedragen. Start PREFLIGHT of SCAN.'
-    : !validScan ? 'Tijdstip onbekend · controleer GitHub Actions'
-    : stale ? 'Let op: bedragen zijn verouderd. Laatste meting: '+new Date(scannedAt).toLocaleString('nl-NL')
-    : 'Laatste meting: '+new Date(scannedAt).toLocaleString('nl-NL')+' · uitsluitend DEMO';
+  e('finance-age').textContent = !moneyValid?'—':!validScan?'Tijd onbekend'
+    : stale?'⚠ Verouderd · '+new Date(scannedAt).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'})
+    :new Date(scannedAt).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});
   e('margin').textContent=data.margin_level_pct == null?'—':data.margin_level_pct+'%';
   const marginKnown=validScan && !stale && typeof data.margin_level_pct==='number' && Number.isFinite(data.margin_level_pct);
   e('margin-gate').textContent=!marginKnown?'ONBEKEND':data.margin_paused?'PAUZE':'BESCHIKBAAR';
   e('margin-gate').className='value '+(!marginKnown||data.margin_paused?'warn':'good');
   e('errors').className='value '+(data.errors_count>0?'bad':'');
-  e('updated').textContent=validScan?'Laatste scan: '+new Date(scannedAt).toLocaleString('nl-NL'):'Nog geen meting';
+  e('updated').textContent=validScan?new Date(scannedAt).toLocaleString('nl-NL',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'—';
   const signals=Array.isArray(data.signals)?data.signals:[];
   e('signals-count').textContent=validScan?signals.filter(s=>s.signal==='BUY'||s.signal==='SELL').length:'—';
-  e('markets-label').textContent=validScan?signals.length+' zichtbare markten':'Nog geen scan';
+  e('markets-label').textContent=validScan?signals.length+' getoond':'—';
   if(data.repo&&/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(data.repo))e('actions').href='https://github.com/'+data.repo+'/actions';
   const list=e('markets');list.replaceChildren();
   if(!signals.length){const msg=document.createElement('div');msg.className='card';msg.textContent='Nog geen marktsignalen gepubliceerd.';list.append(msg)}
   for(const s of signals){
     const outer=document.createElement('div');outer.className='market';
     const left=document.createElement('div'),name=document.createElement('strong'),sub=document.createElement('small'),tag=document.createElement('span');
-    name.textContent=s.epic;sub.textContent='Spread: '+safe(s.spread_pct)+'% · EMA 9: '+safe(s.ema9)+' · EMA 21: '+safe(s.ema21);
+    name.textContent=s.epic;sub.textContent='Spread '+safe(s.spread_pct)+'% · EMA9 '+safe(s.ema9)+' · EMA21 '+safe(s.ema21);
     left.append(name,sub);tag.className='signal '+(s.signal==='BUY'?'buy':s.signal==='SELL'?'sell':'');tag.textContent=s.signal;
     outer.append(left,tag);list.append(outer);
   }
@@ -107,10 +105,10 @@ async function refresh(){
   e('updated').textContent='Status kon niet worden geladen';
   e('mode').textContent='GEEN GEGEVENS';
   e('mode').className='value warn';
-  e('age').textContent='Controleer de publicatie bij GitHub Actions';
+  e('age').textContent='Geen verbinding met statusbestand';
   for(const id of ['demo-equity','demo-available','demo-pnl'])e(id).textContent='—';
   e('demo-pnl').className='value muted';
-  e('finance-age').textContent='Rekeninggegevens niet beschikbaar: status kon niet worden geladen';
+  e('finance-age').textContent='Niet beschikbaar';
 }
  finally{e('refresh').disabled=false}
 }
