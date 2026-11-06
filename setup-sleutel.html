@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src 'none'; img-src 'none'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>Capital DEMO · Eigen geheime sleutel maken</title>
+  <style>
+    :root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:#0b1220;color:#eaf0ff}
+    *{box-sizing:border-box}body{margin:0;padding:env(safe-area-inset-top) 18px calc(32px + env(safe-area-inset-bottom))}
+    main{max-width:580px;margin:36px auto}
+    .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#93b7ff;font-weight:750}
+    h1{font-size:clamp(26px,7vw,35px);letter-spacing:-.04em;margin:12px 0}
+    p{line-height:1.58;color:#c3d0e5}
+    .panel{background:#162238;border:1px solid #334763;border-radius:19px;padding:20px;margin:25px 0}
+    .label{color:#aabbd6;font-size:13px;font-weight:650;margin-bottom:9px}
+    .key{width:100%;min-height:48px;border:1px solid #52698e;border-radius:11px;padding:12px;background:#0c1527;color:#eaf0ff;font:14px ui-monospace,monospace}
+    button,.link{border:0;border-radius:12px;padding:14px 17px;font-size:15px;font-weight:720;cursor:pointer}
+    button.primary{background:#7ba7ff;color:#071125}
+    button.secondary{background:#33445f;color:#fff}
+    .buttons{display:flex;gap:10px;flex-wrap:wrap}.buttons button{flex:1}
+    .status{min-height:25px;font-size:13px;color:#94dcb9;margin-top:12px}
+    .muted{font-size:13px;color:#9eafca}
+    ol{line-height:1.9;padding-left:23px;color:#d5e0f3}
+    code{font-family:ui-monospace,monospace;background:#25354e;border-radius:5px;padding:2px 5px}
+    a{color:#9ec0ff}
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Capital.com DEMO · V14.9</div>
+  <h1>Maak je eigen geheime sleutel</h1>
+  <p>Alleen voor <strong>GITHUB_STATE_KEY</strong>. Deze pagina maakt een unieke Fernet-sleutel op je iPhone aan. De sleutel wordt <strong>niet verzonden of bewaard</strong>; de generator heeft geen externe scripts of netwerkverbindingen.</p>
+  <section class="panel">
+    <div class="label">Jouw nieuwe sleutel (verschijnt pas na tikken)</div>
+    <input class="key" id="key" type="text" placeholder="Nog geen sleutel gemaakt" readonly autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Gegenereerde geheime sleutel">
+    <div class="buttons" style="margin-top:13px">
+      <button id="generate" class="primary" type="button">Genereer sleutel</button>
+      <button id="copy" class="secondary" type="button" disabled>Kopieer sleutel</button>
+    </div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+  <h2>Daarna in GitHub</h2>
+  <ol>
+    <li>Tik op <strong>Genereer sleutel</strong>, daarna op <strong>Kopieer sleutel</strong>.</li>
+    <li>Open <a href="https://github.com/k7zyyctgbb-gif/Capital.com-demo-v149/settings/secrets/actions/new" rel="noopener noreferrer">Nieuw secret in je privébot</a>.</li>
+    <li>Bij <strong>Name</strong> vul je <code>GITHUB_STATE_KEY</code> in.</li>
+    <li>Bij <strong>Secret</strong> plak je de gekopieerde sleutel, zonder aanhalingstekens.</li>
+    <li>Tik op <strong>Add secret</strong>.</li>
+  </ol>
+  <p class="muted">Deel deze sleutel niet met mij of anderen en maak er geen screenshot van. Als er al versleutelde botstatus bestaat, vervang een eerdere GITHUB_STATE_KEY dan niet zomaar: je kunt die status dan mogelijk niet meer lezen.</p>
+  <p class="muted"><a href="./">Terug naar het Capital iPhone-dashboard</a></p>
+</main>
+<script>
+'use strict';
+(() => {
+  const field = document.getElementById('key');
+  const gen = document.getElementById('generate');
+  const copy = document.getElementById('copy');
+  const status = document.getElementById('status');
+  gen.addEventListener('click', () => {
+    if (!globalThis.crypto || !crypto.getRandomValues) {
+      status.textContent = 'Deze browser ondersteunt geen veilige sleutelgeneratie. Open de pagina in Safari via HTTPS.';
+      return;
+    }
+    const random = new Uint8Array(32);
+    crypto.getRandomValues(random);
+    const encoded = btoa(String.fromCharCode(...random))
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_');
+    random.fill(0);
+    field.value = encoded;
+    copy.disabled = false;
+    status.textContent = 'Sleutel lokaal gemaakt. Kopieer hem nu naar GitHub Secrets.';
+  });
+  copy.addEventListener('click', async () => {
+    if (!field.value) return;
+    try {
+      await navigator.clipboard.writeText(field.value);
+      status.textContent = 'Gekopieerd. Plak de sleutel nu in het Secret-veld op GitHub.';
+    } catch (error) {
+      field.focus();
+      field.select();
+      status.textContent = 'Kopiëren niet gelukt. Houd de geselecteerde tekst ingedrukt en kies Kopieer.';
+    }
+  });
+})();
+</script>
+</body>
+</html>
