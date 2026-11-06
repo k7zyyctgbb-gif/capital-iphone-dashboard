@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0d1424" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="description" content="Capital.com DEMO tradingbot: alleen-lezen statusdashboard." />
+<title>Capital DEMO · iPhone-dashboard</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--paper:#151f31;--border:#2a3650;--light:#eaf0ff;--soft:#9bafcc;--blue:#6494ff;--green:#62dcab;--red:#ff8598;--gold:#f7c878}
+*{box-sizing:border-box}body{margin:0;padding:0;color:var(--light);background:radial-gradient(ellipse at 75% -15%,#1b355b 0,transparent 55%),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px}
+main{width:min(960px,100%);margin:0 auto;padding:env(safe-area-inset-top) 17px calc(30px + env(safe-area-inset-bottom))}
+.header{padding-top:35px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.eyebrow{color:var(--blue);text-transform:uppercase;letter-spacing:.14em;font-weight:750;font-size:11px}.title{font-size:clamp(27px,6vw,40px);letter-spacing:-.04em;line-height:1.12;margin:7px 0 9px;font-weight:760}.subtitle{color:var(--soft);margin:0;line-height:1.5}
+.pill{white-space:nowrap;border:1px solid #386a64;background:#1d3c3a;border-radius:90px;padding:8px 12px;color:#91edc7;font-weight:780;font-size:12px;margin-top:5px}
+.notice{background:#15243a;border:1px solid #385272;border-radius:14px;margin-top:23px;padding:12px 15px;color:#bcd3f3;font-size:13px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}.card{background:var(--paper);border:1px solid var(--border);border-radius:20px;padding:19px;min-width:0}.card .label{font-size:12px;color:var(--soft);margin-bottom:12px}.card .value{font-size:clamp(18px,4.7vw,30px);font-weight:760;letter-spacing:-.035em;overflow-wrap:anywhere}.card .meta{margin-top:10px;font-size:12px;color:var(--soft)}.wide{grid-column:span 2}.good{color:var(--green)}.warn{color:var(--gold)}.bad{color:var(--red)}.muted{color:var(--soft)}
+.actions{display:flex;flex-wrap:wrap;gap:11px;margin:22px 0 27px}.button{border:1px solid #345279;background:#243a5e;color:#e4efff;border-radius:14px;font-size:14px;font-weight:680;padding:13px 18px;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-height:46px}
+button.button{font:inherit;font-size:14px;font-weight:680}.button.primary{background:#416be5;border-color:#416be5;color:white}.button:disabled{opacity:.5}
+.section{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 12px}.section h2{margin:0;font-size:19px;letter-spacing:-.02em}.count{font-size:12px;color:var(--soft)}
+.market-list{display:grid;gap:9px}.market{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}.market strong{display:block;font-size:15px}.market small{color:var(--soft);display:block;font-size:12px;margin-top:5px}.signal{border-radius:20px;background:#303b54;color:#bfcde9;padding:6px 10px;font-size:11px;font-weight:800}.signal.buy{color:#73e3b6;background:#17463a}.signal.sell{color:#ffa3ae;background:#502b3c}
+footer{color:var(--soft);font-size:12px;line-height:1.65;padding:20px 0 0;border-top:1px solid var(--border);margin-top:32px}footer a{color:#96b6ff}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.wide{grid-column:span 2}.market-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body><main>
+<header class="header"><div><div class="eyebrow">CONTROL CENTER / V14.9</div><h1 class="title">Capital · iPhone</h1><p class="subtitle">Automatische crypto-CFD-scanner<br>EMA 9 / 21 · candles van 5 minuten</p></div><div class="pill">● DEMO</div></header>
+<div class="notice">Dit is een <strong>alleen-lezen</strong> GitHub Pages-dashboard. De scanner draait in een aparte privé-repository via GitHub Actions, niet in Safari. Geen API-sleutels, rekeningsaldi of ordergegevens op deze publieke pagina. Marginbeveiliging: pauze bij 110%, hervat nieuwe orders pas vanaf 120%. De nieuwe regels zijn offline getest; live DEMO-verificatie is nog vereist voordat je automatisch handelen inschakelt.</div>
+<section class="grid" aria-label="Botstatus">
+ <div class="card wide"><div class="label">BOTMODUS</div><div class="value" id="mode">GEEN GEGEVENS</div><div class="meta" id="age">Wachten op eerste scannerstatus</div></div>
+ <div class="card wide"><div class="label">LAATSTE BESLISSING</div><div class="value" id="decision">—</div><div class="meta" id="updated">Nog geen meting</div></div>
+ <div class="card"><div class="label">CRYPTO-CATALOGUS</div><div class="value" id="catalog">—</div><div class="meta">gevonden op Capital DEMO</div></div>
+ <div class="card"><div class="label">DEZE SCAN</div><div class="value" id="scanned">—</div><div class="meta">roterende deelverzameling</div></div>
+ <div class="card"><div class="label">GESCANDE SIGNALEN</div><div class="value" id="signals-count">—</div><div class="meta">waarvan BUY/SELL</div></div>
+ <div class="card"><div class="label">SCANFOUTEN</div><div class="value" id="errors">—</div><div class="meta">controleer Actions-log</div></div>
+ <div class="card"><div class="label">MARGENIVEAU</div><div class="value" id="margin">—</div><div class="meta">Alleen percentage (publiek)</div></div>
+ <div class="card"><div class="label">MARGEPOORT</div><div class="value" id="margin-gate">—</div><div class="meta">110% pauze · 120% hervatten</div></div>
+</section>
+<div class="actions"><button class="button primary" id="refresh" type="button">↻ Nu verversen</button><a class="button" id="actions" href="https://github.com" rel="noopener noreferrer" target="_blank">Open GitHub Actions</a></div>
+<div class="section"><h2>Markten &amp; signalen</h2><span class="count" id="markets-label">Laatste scan</span></div>
+<section id="markets" class="market-list" aria-live="polite"><div class="card">Geen gegevens gepubliceerd. Voer eerst een GitHub Actions-scan uit.</div></section>
+<footer>Uitsluitend Capital.com DEMO. Maximum €100 per nieuwe positie, SL 2,5%, TP 5% (geen verliesgarantie). Meerdere posities zijn toegestaan als de extra marge past; maximaal één nieuwe order per scan. Voor live DEMO-gebruik eerst brokercontrole en een expliciete inschakeling nodig. GitHub Actions kan scans minimaal iedere 5 minuten plannen; vertragingen zijn mogelijk. Deze pagina kan <strong>openbaar</strong> zijn. START/STOP gaat uitsluitend via de <strong>DEMO_BOT_ENABLED</strong>-variabele in de privé-repository, niet via het publieke dashboard.</footer>
+</main><script>
+const e = id => document.getElementById(id);
+const safe = x => x == null ? '—' : String(x);
+async function refresh(){
+ e('refresh').disabled=true;
+ try{
+  const res=await fetch('./status.json?b='+Date.now(),{cache:'no-store'});
+  if(!res.ok)throw Error('Nog geen statusbestand');
+  const data=await res.json();
+  const scannedAt = data.checked_utc ? Date.parse(data.checked_utc) : NaN;
+  const validScan = Number.isFinite(scannedAt);
+  const stale = validScan && Date.now() - scannedAt > 20 * 60 * 1000;
+  const active=data.enabled===true;
+  e('mode').textContent = !validScan?'GEEN GEGEVENS':stale?'STATUS VEROUDERD':active?'ACTIEF · DEMO':'GEPAUZEERD';
+  e('mode').className='value '+(!validScan||stale?'warn':active?'good':'muted');
+  e('age').textContent = !validScan?'Wachten op eerste scan':stale?'Controleer GitHub Actions: laatste scan is ouder dan 20 minuten':'Laatst opgeslagen handelsmodus (geen live verbinding)';
+  e('decision').textContent=safe(data.decision);
+  e('catalog').textContent=safe(data.catalog_total);
+  e('scanned').textContent=safe(data.markets_scanned);
+  e('errors').textContent=safe(data.errors_count);
+  e('margin').textContent=data.margin_level_pct == null?'—':data.margin_level_pct+'%';
+  e('margin-gate').textContent=!validScan?'GEEN GEGEVENS':data.margin_paused?'PAUZE':'BESCHIKBAAR';
+  e('margin-gate').className='value '+(data.margin_paused?'warn':'good');
+  e('errors').className='value '+(data.errors_count>0?'bad':'');
+  e('updated').textContent=validScan?'Laatste scan: '+new Date(scannedAt).toLocaleString('nl-NL'):'Nog geen meting';
+  const signals=Array.isArray(data.signals)?data.signals:[];
+  e('signals-count').textContent=signals.filter(s=>s.signal==='BUY'||s.signal==='SELL').length;
+  e('markets-label').textContent=signals.length+' zichtbare markten';
+  if(data.repo&&/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(data.repo))e('actions').href='https://github.com/'+data.repo+'/actions';
+  const list=e('markets');list.replaceChildren();
+  if(!signals.length){const msg=document.createElement('div');msg.className='card';msg.textContent='Nog geen marktsignalen gepubliceerd.';list.append(msg)}
+  for(const s of signals){
+    const outer=document.createElement('div');outer.className='market';
+    const left=document.createElement('div'),name=document.createElement('strong'),sub=document.createElement('small'),tag=document.createElement('span');
+    name.textContent=s.epic;sub.textContent='Spread: '+safe(s.spread_pct)+'% · EMA 9: '+safe(s.ema9)+' · EMA 21: '+safe(s.ema21);
+    left.append(name,sub);tag.className='signal '+(s.signal==='BUY'?'buy':s.signal==='SELL'?'sell':'');tag.textContent=s.signal;
+    outer.append(left,tag);list.append(outer);
+  }
+ }catch(err){e('updated').textContent='Status kon niet worden geladen';e('mode').textContent='GEEN GEGEVENS';e('mode').className='value warn';e('age').textContent='Controleer de publicatie bij GitHub Actions';}
+ finally{e('refresh').disabled=false}
+}
+e('refresh').addEventListener('click',refresh);
+refresh();setInterval(refresh,60000);
+</script></body></html>
