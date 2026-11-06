@@ -25,12 +25,12 @@ footer{color:var(--soft);font-size:12px;line-height:1.65;padding:20px 0 0;border
 </style>
 </head>
 <body><main>
-<header class="header"><div><div class="eyebrow">CONTROL CENTER / V14.9</div><h1 class="title">Capital · iPhone</h1><p class="subtitle">Automatische crypto-CFD-scanner<br>EMA 9 / 21 · candles van 5 minuten</p></div><div class="pill">● DEMO</div></header>
+<header class="header"><div><div class="eyebrow">CONTROL CENTER / V14.9</div><h1 class="title">Capital · iPhone</h1><p class="subtitle">Geselecteerde crypto-CFD-scanner<br>Max. 30 munten · EMA 9/21 op 5 minuten</p></div><div class="pill">● DEMO</div></header>
 <div class="notice">Dit is een <strong>alleen-lezen</strong> GitHub Pages-dashboard. De scanner draait in een aparte privé-repository via GitHub Actions, niet in Safari. Geen API-sleutels, rekeningnummers of individuele ordergegevens op deze publieke pagina. <strong>Let op:</strong> de drie getoonde DEMO-bedragen (totaalsaldo, beschikbaar en open P&amp;L) zijn voor iedereen zichtbaar. Gebruik deze openbare website nooit voor LIVE-rekeninggegevens. Marginbeveiliging: pauze bij 110%, hervat nieuwe orders pas vanaf 120%. De nieuwe regels zijn offline getest; live DEMO-verificatie is nog vereist voordat je automatisch handelen inschakelt.</div>
 <section class="grid" aria-label="Botstatus">
  <div class="card wide"><div class="label">BOTMODUS</div><div class="value" id="mode">GEEN GEGEVENS</div><div class="meta" id="age">Wachten op eerste scannerstatus</div></div>
  <div class="card wide"><div class="label">LAATSTE BESLISSING</div><div class="value" id="decision">—</div><div class="meta" id="updated">Nog geen meting</div></div>
- <div class="card"><div class="label">CRYPTO-CATALOGUS</div><div class="value" id="catalog">—</div><div class="meta">gevonden op Capital DEMO</div></div>
+ <div class="card"><div class="label">GESELECTEERDE MUNTEN</div><div class="value" id="catalog">—</div><div class="meta" id="catalog-meta">Maximaal 30 zorgvuldig gefilterd</div></div>
  <div class="card"><div class="label">DEZE SCAN</div><div class="value" id="scanned">—</div><div class="meta">roterende deelverzameling</div></div>
  <div class="card"><div class="label">GESCANDE SIGNALEN</div><div class="value" id="signals-count">—</div><div class="meta">waarvan BUY/SELL</div></div>
  <div class="card"><div class="label">SCANFOUTEN</div><div class="value" id="errors">—</div><div class="meta">controleer Actions-log</div></div>
@@ -67,7 +67,10 @@ async function refresh(){
   e('mode').className='value '+(!validScan||stale?'warn':active?'good':'muted');
   e('age').textContent = !validScan?'Wachten op eerste scan':stale?'Controleer GitHub Actions: laatste scan is ouder dan 20 minuten':'Laatst opgeslagen handelsmodus (geen live verbinding)';
   e('decision').textContent=safe(data.decision);
-  e('catalog').textContent=safe(data.catalog_total);
+  e('catalog').textContent=safe(data.selected_markets);
+  e('catalog-meta').textContent=typeof data.catalog_total==='number'
+    ? 'uit '+data.catalog_total+' cryptomarkten op Capital DEMO'
+    : 'Maximaal 30 zorgvuldig gefilterd';
   e('scanned').textContent=safe(data.markets_scanned);
   e('errors').textContent=safe(data.errors_count);
   const demoFinancials = [data.demo_equity_eur,data.demo_available_eur,data.demo_open_pnl_eur];
