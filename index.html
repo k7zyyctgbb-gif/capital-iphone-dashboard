@@ -62,13 +62,14 @@ async function refresh(){
   e('scanned').textContent=safe(data.markets_scanned);
   e('errors').textContent=safe(data.errors_count);
   e('margin').textContent=data.margin_level_pct == null?'—':data.margin_level_pct+'%';
-  e('margin-gate').textContent=!validScan?'GEEN GEGEVENS':data.margin_paused?'PAUZE':'BESCHIKBAAR';
-  e('margin-gate').className='value '+(data.margin_paused?'warn':'good');
+  const marginKnown=validScan && !stale && typeof data.margin_level_pct==='number' && Number.isFinite(data.margin_level_pct);
+  e('margin-gate').textContent=!marginKnown?'ONBEKEND':data.margin_paused?'PAUZE':'BESCHIKBAAR';
+  e('margin-gate').className='value '+(!marginKnown||data.margin_paused?'warn':'good');
   e('errors').className='value '+(data.errors_count>0?'bad':'');
   e('updated').textContent=validScan?'Laatste scan: '+new Date(scannedAt).toLocaleString('nl-NL'):'Nog geen meting';
   const signals=Array.isArray(data.signals)?data.signals:[];
-  e('signals-count').textContent=signals.filter(s=>s.signal==='BUY'||s.signal==='SELL').length;
-  e('markets-label').textContent=signals.length+' zichtbare markten';
+  e('signals-count').textContent=validScan?signals.filter(s=>s.signal==='BUY'||s.signal==='SELL').length:'—';
+  e('markets-label').textContent=validScan?signals.length+' zichtbare markten':'Nog geen scan';
   if(data.repo&&/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(data.repo))e('actions').href='https://github.com/'+data.repo+'/actions';
   const list=e('markets');list.replaceChildren();
   if(!signals.length){const msg=document.createElement('div');msg.className='card';msg.textContent='Nog geen marktsignalen gepubliceerd.';list.append(msg)}
