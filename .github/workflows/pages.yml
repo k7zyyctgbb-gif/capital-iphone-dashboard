@@ -7,6 +7,7 @@ on:
     paths:
       - 'index.html'
       - 'status.json'
+      - 'setup-sleutel.html'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -30,7 +31,7 @@ jobs:
       - name: Prepare public static files
         run: |
           mkdir -p dist
-          cp index.html status.json dist/
+          cp index.html status.json setup-sleutel.html dist/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
